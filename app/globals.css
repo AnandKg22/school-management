@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy-primary: #001f3f;
+  --navy-light: #003366;
+  --navy-accent: #0074D9;
+  --navy-card: #002852;
+  --success: #34a853;
+  --warning: #fbbc04;
+  --danger: #ea4335;
+  --muted-text: #6b7280;
+  --page-bg: #f8fafc;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-pill: 999px;
+}
+
+.dark {
+  --navy-primary: #0b1528;
+  --navy-light: #16243e;
+  --navy-accent: #38bdf8;
+  --navy-card: #111e38;
+  --page-bg: #070d19;
+  --muted-text: #94a3b8;
+}
+
+body {
+  background-color: var(--page-bg);
+  color: #1e293b;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.dark body {
+  color: #f1f5f9;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: var(--r-pill);
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+
+/* Sidebar Custom Scrollbar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 31, 63, 0.4);
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: var(--r-pill);
+}
+
+/* -------------------------------------------------------------
+ * High-Fidelity Dedicated Print CSS
+ * Enforces A4 dimensions, color preservation, and document isolation
+ * ------------------------------------------------------------- */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .no-print,
+  nav,
+  aside,
+  header,
+  footer,
+  button:not(.allow-print) {
+    display: none !important;
+  }
+
+  #print-surface {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .print-page {
+    page-break-after: always;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .print-navy-band {
+    background-color: #001f3f !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .print-navy-accent {
+    background-color: #003366 !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .print-table th {
+    background-color: #f1f5f9 !important;
+    color: #001f3f !important;
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  .print-table td {
+    border: 1px solid #cbd5e1 !important;
+  }
+
+  /* 3-copy Challan dashed division lines */
+  .challan-cut-line {
+    border-right: 1.5px dashed #94a3b8 !important;
+  }
+}
