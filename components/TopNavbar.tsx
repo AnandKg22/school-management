@@ -18,6 +18,7 @@ interface TopNavbarProps {
   darkMode: boolean;
   onToggleTheme: () => void;
   recentLogs?: any[];
+  onNavigate?: (page: string) => void;
 }
 
 export default function TopNavbar({
@@ -27,6 +28,7 @@ export default function TopNavbar({
   darkMode,
   onToggleTheme,
   recentLogs = [],
+  onNavigate,
 }: TopNavbarProps) {
   const [showNotifications, setShowNotifications] = useState(false);
   const pageMeta = PAGE_META[activePage] || {
@@ -129,7 +131,11 @@ export default function TopNavbar({
         </div>
 
         {/* User Pill */}
-        <div className="hidden sm:flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-slate-800">
+        <button
+          onClick={() => onNavigate && onNavigate("account")}
+          className="hidden sm:flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-slate-800 hover:opacity-80 transition-opacity text-left"
+          title="View My Account"
+        >
           <div className="w-8 h-8 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-xs uppercase shadow-sm">
             {user?.username?.[0] || "A"}
           </div>
@@ -141,7 +147,7 @@ export default function TopNavbar({
               {user?.roleLabel || "Super Admin"}
             </span>
           </div>
-        </div>
+        </button>
       </div>
     </header>
   );

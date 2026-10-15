@@ -17,6 +17,8 @@ import VendorsView from "./views/VendorsView";
 import UsersView from "./views/UsersView";
 import SettingsView from "./views/SettingsView";
 import LogsView from "./views/LogsView";
+import AboutView from "./views/AboutView";
+import AccountView from "./views/AccountView";
 
 export default function AppShell() {
   const router = useRouter();
@@ -153,6 +155,8 @@ export default function AppShell() {
           {activePage === "users" && <UsersView user={user} />}
           {activePage === "settings" && <SettingsView user={user} />}
           {activePage === "logs" && <LogsView user={user} />}
+          {activePage === "about" && <AboutView />}
+          {activePage === "account" && <AccountView user={user} />}
         </main>
       </div>
     </div>

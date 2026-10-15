@@ -18,6 +18,24 @@ export const PAGE_META: Record<string, PageDefinition> = {
     description: "Operational overview, financial aggregates & live statistics",
     allowedActions: ["view"],
   },
+  about: {
+    key: "about",
+    label: "About System",
+    group: "General",
+    icon: "Info",
+    route: "/about",
+    description: "Institutional architecture, specifications & system telemetry",
+    allowedActions: ["view"],
+  },
+  account: {
+    key: "account",
+    label: "My Account",
+    group: "General",
+    icon: "UserCircle",
+    route: "/account",
+    description: "User profile, active RBAC permissions & security credentials",
+    allowedActions: ["view", "edit"],
+  },
   students: {
     key: "students",
     label: "Students",
@@ -139,6 +157,10 @@ export function hasPermission(
   action: "view" | "add" | "edit" | "delete",
   isSuper: boolean = false
 ): boolean {
+  if (pageKey === "about" || pageKey === "account") {
+    return action === "view" || action === "edit";
+  }
+
   if (isSuper) {
     // Super Admin has view only on dashboard & logs, full on others
     if (pageKey === "dashboard" || pageKey === "logs") {

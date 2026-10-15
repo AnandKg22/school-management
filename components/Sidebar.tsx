@@ -19,6 +19,8 @@ import {
   ChevronLeft,
   ChevronRight,
   School,
+  Info,
+  UserCircle,
 } from "lucide-react";
 import { PAGE_META, PAGE_GROUPS, hasPermission } from "@/lib/registry";
 
@@ -33,6 +35,8 @@ interface SidebarProps {
 
 const ICON_MAP: Record<string, React.ReactNode> = {
   LayoutDashboard: <LayoutDashboard className="w-5 h-5 flex-shrink-0" />,
+  Info: <Info className="w-5 h-5 flex-shrink-0" />,
+  UserCircle: <UserCircle className="w-5 h-5 flex-shrink-0" />,
   GraduationCap: <GraduationCap className="w-5 h-5 flex-shrink-0" />,
   UserCheck: <UserCheck className="w-5 h-5 flex-shrink-0" />,
   Receipt: <Receipt className="w-5 h-5 flex-shrink-0" />,
