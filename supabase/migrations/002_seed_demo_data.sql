@@ -110,8 +110,8 @@ BEGIN
 
   -- Global Superadmin
   INSERT INTO app_school_management_users (username, email, password_hash, role_id, status)
-  VALUES ('admin', 'admin@akstack.com', 'b8cf8353a25b1b22e1181295b927ea9d4b0ac0103cf1c3ab5555bb0f498cbe02', v_super_role, 'Active')
-  ON CONFLICT (username) DO UPDATE SET role_id = v_super_role;
+  VALUES ('admin', 'admin@akstack.com', '6e88ede837a5a406b402f16320fdfbba640e09d96c4683165b0bad03003ffff2', v_super_role, 'Active')
+  ON CONFLICT (username) DO UPDATE SET role_id = v_super_role, password_hash = '6e88ede837a5a406b402f16320fdfbba640e09d96c4683165b0bad03003ffff2';
 
   -- Demo Super Admin (username: superadmin / admin123)
   INSERT INTO app_school_management_users (username, email, password_hash, role_id, status)
