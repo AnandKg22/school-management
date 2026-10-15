@@ -9,7 +9,7 @@
 **Dokploy Project:** `Agent-Supabase` (`rQWi4G7mifTX_cwpLbWTk`)  
 **Dokploy Environment:** `production` (`awOmNSOg-Crp27dEU8gm6`)  
 **GitHub Repository:** [https://github.com/AnandKg22/school-management.git](https://github.com/AnandKg22/school-management.git)  
-**Latest Deployed Commit:** `b8a3910` (feat: add About and Account views to complete PRD 15-page registry)  
+**Latest Deployed Commit:** `93faa6f` (fix: resolve top cutoff on print modals with sticky controls, Escape listener, backdrop dismissal, and bottom controls)  
 **Central Supabase Instance:** `https://supabase-supabase-8fc5f7-185-205-244-119.sslip.io`  
 **Database Isolation Prefix:** `app_school_management_*` (13 isolated tables)  
 **Global Super Admin:** `admin@akstack.com` (`#Akaash22#`)  
