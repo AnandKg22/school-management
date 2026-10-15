@@ -3,14 +3,19 @@
 **Project:** School Management System  
 **Slug:** `school-management` (Database Namespace: `school_management`)  
 **Created:** 2026-10-15  
-**Status:** IN PROGRESS — Scaffolding & Initial Implementation  
-**Target Production URL:** [https://school-management.akstack.com](https://school-management.akstack.com)  
+**Status:** LIVE IN PRODUCTION — Deployed & Verified  
+**Dokploy Application ID:** `M8gQyk8Xwo3HnAjYBTJ23`  
+**Production URL:** [https://school-management.akstack.com](https://school-management.akstack.com)  
 **Dokploy Project:** `Agent-Supabase` (`rQWi4G7mifTX_cwpLbWTk`)  
 **Dokploy Environment:** `production` (`awOmNSOg-Crp27dEU8gm6`)  
 **GitHub Repository:** [https://github.com/AnandKg22/school-management.git](https://github.com/AnandKg22/school-management.git)  
+**Latest Deployed Commit:** `d7d06ca`  
 **Central Supabase Instance:** `https://supabase-supabase-8fc5f7-185-205-244-119.sslip.io`  
-**Database Isolation Prefix:** `app_school_management_*`  
+**Database Isolation Prefix:** `app_school_management_*` (13 isolated tables)  
 **Global Super Admin:** `admin@akstack.com` (`#Akaash22#`)  
+**Verified Endpoints:**
+- `GET https://school-management.akstack.com/api/health` -> HTTP 200 OK (`database: connected`, `records: { students: 8 }`)
+- `POST https://school-management.akstack.com/api/v1/auth/login` -> HTTP 200 OK (Super Admin authenticated session token returned)
 
 ---
 
