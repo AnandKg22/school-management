@@ -479,9 +479,18 @@ export default function FeesView({ user }: FeesViewProps) {
 
       {/* Single Collect Fee Modal */}
       {showSingleModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl shadow-2xl max-w-lg w-full border border-slate-200 dark:border-slate-800 overflow-hidden my-6">
-            <div className="flex items-center justify-between px-6 py-4 bg-slate-900 text-white border-b border-slate-800">
+        <div
+          className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm p-3 sm:p-6"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowSingleModal(false);
+          }}
+        >
+          <div className="min-h-full flex items-start sm:items-center justify-center py-4">
+            <div
+              className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl shadow-2xl max-w-lg w-full border border-slate-200 dark:border-slate-800 overflow-hidden relative my-2 sm:my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-900 text-white border-b border-slate-800">
               <h3 className="font-bold text-base flex items-center space-x-2">
                 <Receipt className="w-5 h-5 text-sky-400" />
                 <span>Collect Student Fee</span>
@@ -639,17 +648,27 @@ export default function FeesView({ user }: FeesViewProps) {
             </form>
           </div>
         </div>
+      </div>
       )}
 
       {/* Family / Sibling Billing Modal */}
       {showFamilyModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl shadow-2xl max-w-3xl w-full border border-slate-200 dark:border-slate-800 overflow-hidden my-6">
-            <div className="flex items-center justify-between px-6 py-4 bg-slate-900 text-white border-b border-slate-800">
-              <h3 className="font-bold text-base flex items-center space-x-2">
-                <Users className="w-5 h-5 text-indigo-400" />
-                <span>Family & Sibling Consolidated Billing</span>
-              </h3>
+        <div
+          className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm p-3 sm:p-6"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setShowFamilyModal(false);
+          }}
+        >
+          <div className="min-h-full flex items-start sm:items-center justify-center py-4">
+            <div
+              className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-xl shadow-2xl max-w-3xl w-full border border-slate-200 dark:border-slate-800 overflow-hidden relative my-2 sm:my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-900 text-white border-b border-slate-800">
+                <h3 className="font-bold text-base flex items-center space-x-2">
+                  <Users className="w-5 h-5 text-indigo-400" />
+                  <span>Family & Sibling Consolidated Billing</span>
+                </h3>
               <button onClick={() => setShowFamilyModal(false)} className="text-slate-400 hover:text-white">
                 <X className="w-5 h-5" />
               </button>
@@ -798,6 +817,7 @@ export default function FeesView({ user }: FeesViewProps) {
             </form>
           </div>
         </div>
+      </div>
       )}
 
       {/* Printable Modals */}

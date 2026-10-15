@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Printer, X } from "lucide-react";
 import { numToWords } from "@/lib/financial-formulas";
 
@@ -10,6 +10,16 @@ interface SalarySlipModalProps {
 }
 
 export default function SalarySlipModal({ salaryData, onClose }: SalarySlipModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   if (!salaryData || !salaryData.salary) return null;
 
   const { salary, schoolInfo } = salaryData;
@@ -54,30 +64,40 @@ export default function SalarySlipModal({ salaryData, onClose }: SalarySlipModal
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="bg-white text-slate-900 rounded-xl shadow-2xl max-w-2xl w-full border border-slate-200 overflow-hidden my-6">
-        {/* Modal Controls (Hidden in print) */}
-        <div className="no-print flex items-center justify-between px-6 py-4 bg-slate-900 text-white border-b border-slate-800">
-          <div className="flex items-center space-x-2">
-            <Printer className="w-5 h-5 text-sky-400" />
-            <span className="font-semibold text-lg">Employee Salary Slip</span>
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm p-3 sm:p-6"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="min-h-full flex items-start sm:items-center justify-center py-4">
+        <div
+          className="bg-white text-slate-900 rounded-xl shadow-2xl max-w-2xl w-full border border-slate-200 overflow-hidden relative my-2 sm:my-auto"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Modal Controls (Hidden in print) */}
+          <div className="no-print sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3.5 bg-slate-900 text-white border-b border-slate-800 shadow-md">
+            <div className="flex items-center space-x-2">
+              <Printer className="w-5 h-5 text-sky-400" />
+              <span className="font-semibold text-base sm:text-lg">Employee Salary Slip</span>
+            </div>
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <button
+                onClick={handlePrint}
+                className="px-3.5 py-1.5 sm:px-4 sm:py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs sm:text-sm font-medium flex items-center space-x-1.5 sm:space-x-2 transition-colors shadow-sm"
+              >
+                <Printer className="w-4 h-4" />
+                <span>Print Salary Slip</span>
+              </button>
+              <button
+                onClick={onClose}
+                className="p-1.5 sm:p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+                title="Close (Esc)"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
-          <div className="flex items-center space-x-3">
-            <button
-              onClick={handlePrint}
-              className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-sm font-medium flex items-center space-x-2 transition-colors shadow-sm"
-            >
-              <Printer className="w-4 h-4" />
-              <span>Print Salary Slip</span>
-            </button>
-            <button
-              onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
 
         {/* Printable Surface */}
         <div id="print-surface" className="p-8 print-page">
@@ -186,7 +206,32 @@ export default function SalarySlipModal({ salaryData, onClose }: SalarySlipModal
             </div>
           </div>
         </div>
+
+        {/* Modal Footer Controls (Hidden in print) */}
+        <div className="no-print flex items-center justify-between px-6 py-3 bg-slate-100 border-t border-slate-200">
+          <span className="text-xs text-slate-500">
+            Press <kbd className="px-1.5 py-0.5 bg-white border border-slate-300 rounded font-mono text-[10px]">Esc</kbd> or click outside to dismiss
+          </span>
+          <div className="flex items-center space-x-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-1.5 border border-slate-300 bg-white rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              onClick={handlePrint}
+              className="px-4 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs sm:text-sm font-medium flex items-center space-x-1.5 transition-colors shadow-sm"
+            >
+              <Printer className="w-4 h-4" />
+              <span>Print Salary Slip</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  );
+  </div>
+);
 }

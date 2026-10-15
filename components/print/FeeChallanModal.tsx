@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Printer, X } from "lucide-react";
 import { numToWords } from "@/lib/financial-formulas";
 
@@ -10,6 +10,16 @@ interface FeeChallanModalProps {
 }
 
 export default function FeeChallanModal({ feeData, onClose }: FeeChallanModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   if (!feeData || !feeData.fee) return null;
 
   const { fee, previousArrears = 0, totalPayableWithArrears = 0, schoolInfo } = feeData;
@@ -35,35 +45,45 @@ export default function FeeChallanModal({ feeData, onClose }: FeeChallanModalPro
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="bg-white text-slate-900 rounded-xl shadow-2xl max-w-6xl w-full border border-slate-200 overflow-hidden my-6">
-        {/* Modal Controls (Hidden in print) */}
-        <div className="no-print flex items-center justify-between px-6 py-4 bg-slate-900 text-white border-b border-slate-800">
-          <div>
-            <span className="font-semibold text-lg flex items-center space-x-2">
-              <Printer className="w-5 h-5 text-sky-400" />
-              <span>Three-Copy Bank Challan (A4 Landscape)</span>
-            </span>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Side-by-side Bank, School, and Student copies with previous arrears calculation
-            </p>
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-sm p-3 sm:p-6"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div className="min-h-full flex items-start sm:items-center justify-center py-4">
+        <div
+          className="bg-white text-slate-900 rounded-xl shadow-2xl max-w-6xl w-full border border-slate-200 overflow-hidden relative my-2 sm:my-auto"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Modal Controls (Hidden in print) */}
+          <div className="no-print sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3.5 bg-slate-900 text-white border-b border-slate-800 shadow-md">
+            <div>
+              <span className="font-semibold text-base sm:text-lg flex items-center space-x-2">
+                <Printer className="w-5 h-5 text-sky-400" />
+                <span>Three-Copy Bank Challan (A4 Landscape)</span>
+              </span>
+              <p className="text-xs text-slate-400 mt-0.5 hidden sm:block">
+                Side-by-side Bank, School, and Student copies with previous arrears calculation
+              </p>
+            </div>
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <button
+                onClick={handlePrint}
+                className="px-3.5 py-1.5 sm:px-4 sm:py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs sm:text-sm font-medium flex items-center space-x-1.5 sm:space-x-2 transition-colors shadow-sm"
+              >
+                <Printer className="w-4 h-4" />
+                <span>Print Challan</span>
+              </button>
+              <button
+                onClick={onClose}
+                className="p-1.5 sm:p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+                title="Close (Esc)"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
-          <div className="flex items-center space-x-3">
-            <button
-              onClick={handlePrint}
-              className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-sm font-medium flex items-center space-x-2 transition-colors shadow-sm"
-            >
-              <Printer className="w-4 h-4" />
-              <span>Print 3-Copy Challan</span>
-            </button>
-            <button
-              onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
 
         {/* Printable Surface (Landscape 3 copies) */}
         <div id="print-surface" className="p-6 print-page bg-white">
@@ -195,7 +215,32 @@ export default function FeeChallanModal({ feeData, onClose }: FeeChallanModalPro
             ))}
           </div>
         </div>
+
+        {/* Modal Footer Controls (Hidden in print) */}
+        <div className="no-print flex items-center justify-between px-6 py-3 bg-slate-100 border-t border-slate-200">
+          <span className="text-xs text-slate-500">
+            Press <kbd className="px-1.5 py-0.5 bg-white border border-slate-300 rounded font-mono text-[10px]">Esc</kbd> or click outside to dismiss
+          </span>
+          <div className="flex items-center space-x-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-1.5 border border-slate-300 bg-white rounded-lg text-xs sm:text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              onClick={handlePrint}
+              className="px-4 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs sm:text-sm font-medium flex items-center space-x-1.5 transition-colors shadow-sm"
+            >
+              <Printer className="w-4 h-4" />
+              <span>Print Challan</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
